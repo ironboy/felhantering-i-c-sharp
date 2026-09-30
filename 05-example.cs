@@ -1,3 +1,5 @@
+// See our own exception class at the bottom of this file
+
 static double CalculateDiscount(double price, double discountPercentage = 10)
 {
   if (price < 0)
@@ -5,7 +7,7 @@ static double CalculateDiscount(double price, double discountPercentage = 10)
     // Here we throw an exception
     // It can take some googling or AI help to find the most appropriate
     // existing exception type... but ArgumentOutOfRange seems like a good candidate here
-    throw new ArgumentOutOfRangeException(nameof(price), "Priset får inte vara negativt.");
+    throw new IllegalNegativeDiscountException("Priset får inte vara negativt.");
   }
   return price * discountPercentage / 100;
 }
@@ -27,3 +29,6 @@ catch (Exception exception)
   Console.WriteLine(exception.Message);
 }
 
+// If you REALLY can't find an existing Exception type you think fits
+// the type of exception you want you can create your own
+class IllegalNegativeDiscountException(string message) : Exception(message);
